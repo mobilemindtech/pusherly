@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.sw?
 erl_crash.dump
 *~
@@ -15,3 +16,18 @@ include/plugins.hrl
 *.lock
 *@nohost
 .idea
+.eunit
+*.o
+*.beam
+*.plt
+erl_crash.dump
+.concrete/DEV_MODE
+
+# rebar 2.x
+.rebar
+rel/example_project
+ebin/*.beam
+deps
+
+_build/
+_checkouts/
