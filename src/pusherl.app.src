@@ -1,0 +1,9 @@
+{application, pusherl,
+ [
+  {description, "Pusherl"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [kernel, stdlib, nitrogen_core]},
+  {mod, { pusherl_app, []}},
+  {env, []}
+ ]}.
