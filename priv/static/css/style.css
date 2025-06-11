@@ -1,59 +1,97 @@
-/***** CSS RESET *****/
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/***** STYLE *****/
-
-body { 
-    font-family: "Lucida Grande", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif; 
-    font-size: 16px;
-    line-height: 32px;
+* {
+    font-family: 'Inter', sans-serif;
 }
 
-.container_12 {
-    margin-top: 40px;
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-h1 {
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    padding-bottom: 7px;
-    border-bottom: dashed 1px #DDD;
-    text-transform: uppercase;
-    font-size: 1.875em;
-    line-height: 1.066667em;
-    margin-top: 1.6em;
-    margin-bottom: 1.6em;
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-h2 {
-    font-family: Arial, sans-serif;
-    font-size: 1.5em;
-    line-height: 1.333333em;
-    margin-top: 1.6em;
-    margin-bottom: 1.6em;
+.scroll-smooth {
+    scroll-behavior: smooth;
 }
 
-h3 {
-    font-family: Arial, sans-serif;
-    font-size: 1.25em;
-    line-height: 1.6em;
-    margin-top: 1.333333em;
-    margin-bottom: 1.333333em;
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-p {
-    font-size: 1em;
-    line-height: 2em;
-    margin-top: 2em;
-    margin-bottom: 2em;
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
 }
 
-
-a, a:visited { 
-    color: #4488FF;
-    text-decoration: none; 
+/* Flash Messages */
+.flash-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    padding: 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease-out;
 }
 
-a:hover, a:active { 
-    text-decoration: underline; 
+.flash-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.flash-error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.flash-info {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.sidebar-transition {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Dashboard specific styles */
+.dashboard-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Table styles */
+.table-hover tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.05);
 }

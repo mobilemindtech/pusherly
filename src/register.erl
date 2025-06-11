@@ -95,7 +95,7 @@ event(register) ->
     Email = wf:q(email),
     Password = wf:q(password),
     Name = wf:q(name),
-    case auth_server:create_user(Name, Email, Password, admin) of
+    case user_service:create(Name, Email, Password, admin) of
         {ok, User} ->
             authenticate(Email, Password),
             wf:flash([{type, success}, {text, "Sua conta foi criada com sucesso!"}]);            
@@ -104,7 +104,6 @@ event(register) ->
     end.
 
 authenticate(Email, Password) ->
-    logger:info("authenticate"),
     case auth_server:authenticate(Email, Password) of
         {ok, SessionId, User} ->
             wf:session(user_id, User#user.id),

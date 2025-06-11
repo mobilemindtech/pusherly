@@ -10,15 +10,16 @@ start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-
+    
     application:ensure_all_started(nitrogen_core),
     application:ensure_all_started(nitro_cache),
     application:ensure_all_started(crypto),
     application:ensure_all_started(nprocreg),
     application:ensure_all_started(simple_bridge),
-
+    
     Children = [
-            {auth_server, {auth_server, start_link, []}, permanent, 5000, worker, [auth_server]},
-            {api_server, {api_server, start_link, []}, permanent, 5000, worker, [api_server]}
+            {auth_server, {auth_server, start_link, []}, permanent, 5000, worker, [auth_server]}
+            , {api_server, {api_server, start_link, []}, permanent, 5000, worker, [api_server]}
+            , {user_service, {user_service, start_link, []}, permanent, 5000, worker, [user_service]}
             ],
     {ok, {{one_for_one, 5, 10}, Children}}.

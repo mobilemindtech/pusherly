@@ -13,6 +13,7 @@ main() ->
 
 title() -> "Dashboard Root - Push Notification Manager".
 
+
 body() ->
     #panel{
         class="min-h-screen bg-gray-50",
@@ -30,9 +31,9 @@ body() ->
                             stat_card("📱", "Apps", get_app_count(), "text-green-600"),
                             stat_card("📢", "Canais", get_channel_count(), "text-purple-600"),
                             stat_card("🚀", "Notificações", get_notification_count(), "text-orange-600")
-                        ]
-                    },
-
+                            ]
+                        },
+                    
                     %% User Management
                     #panel{
                         class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden",
@@ -41,8 +42,8 @@ body() ->
                                 class="px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600",
                                 body=[
                                     #h2{class="text-xl font-bold text-white", text="Gerenciar Usuários"}
-                                ]
-                            },
+                                    ]
+                                },
                             #panel{
                                 class="p-6",
                                 body=[
@@ -50,15 +51,15 @@ body() ->
                                     user_form(),
                                     #hr{class="my-8 border-gray-200"},
                                     %% Users Table
-                                    users_table()
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }.
+                                    users_table()                                    
+                                    ]                                
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }.
 
 user_form() ->
     #panel{
@@ -71,29 +72,29 @@ user_form() ->
                         id=user_name,
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
                         placeholder="Nome do usuário"
-                    },
+                        },
                     #textbox{
                         id=user_email,
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
                         placeholder="Email"
-                    },
+                        },
                     #dropdown{
                         id=user_type,
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
                         options=[
                             #option{text="Admin", value="admin"},
                             #option{text="Root", value="root"}
-                        ]
-                    },
+                            ]
+                        },
                     #button{
                         class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200",
                         text="Criar Usuário",
                         postback=create_user
-                    }
-                ]
-            }
-        ]
-    }.
+                        }
+                    ]
+                }
+            ]
+        }.
 
 users_table() ->
     Users = get_all_users(),
@@ -107,11 +108,11 @@ users_table() ->
                     #tablecell{class="px-4 py-3 font-medium text-gray-900", text="Email"},
                     #tablecell{class="px-4 py-3 font-medium text-gray-900", text="Tipo"},
                     #tablecell{class="px-4 py-3 font-medium text-gray-900", text="Ações"}
-                ]
-            },
+                    ]
+                },
             [user_row(User) || User <- Users]
-        ]
-    }.
+            ]
+        }.
 
 user_row(User) ->    
     Type = if 
@@ -119,19 +120,20 @@ user_row(User) ->
         true -> list_to_atom(User#user.type)
     end,
     #tablerow{
+        id="tb-row-user-" ++ User#user.id,
         class="border-b border-gray-100 hover:bg-gray-50",
         cells=[
             #tablecell{class="px-4 py-3 text-gray-900", text=User#user.name},
             #tablecell{class="px-4 py-3 text-gray-500", text=User#user.email},
             #tablecell{class="px-4 py-3", body=[
-                #span{
-                    class=case Type of
-                        root  -> "bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium";
-                        admin -> "bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium"
-                    end,
-                    text=string:to_upper(atom_to_list(Type))
-                }
-            ]},
+                    #span{
+                        class=case Type of
+                            root  -> "bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium";
+                            admin -> "bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium"
+                        end,
+                        text=string:to_upper(atom_to_list(Type))
+                        }
+                    ]},
             #tablecell{
                 class="px-4 py-3",
                 body=[
@@ -139,11 +141,11 @@ user_row(User) ->
                         class="text-red-600 hover:text-red-800 text-sm font-medium",
                         text="Remover",
                         postback={delete_user, User#user.id}
-                    }
-                ]
-            }
-        ]
-    }.
+                        }
+                    ]
+                }
+            ]
+        }.
 
 event(create_user) ->
     Name = wf:q(user_name),
@@ -160,9 +162,13 @@ event(create_user) ->
     end;
 
 event({delete_user, UserId}) ->
-    mnesia:dirty_delete(user, UserId),
-    wf:flash([{type, success}, {text, "Usuário removido com sucesso"}]),
-    wf:redirect("/dashboard/root").
+    case user_service:delete(UserId) of
+        ok ->
+            wf:flash([{type, success}, {text, "Usuário removido com sucesso"}]),
+            wf:wire("$('tb-row-user-"+UserId+"').remove()");
+        {error, Reason} ->
+            wf:flash([{type, error}, {text, "Erro ao remover usuário: " ++ Reason}])
+    end.
 
 %% Helper functions
 check_auth(RequiredType) ->
@@ -190,13 +196,13 @@ dashboard_header(Title) ->
                                 url="/logout",
                                 class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200",
                                 text="Sair"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }.
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }.
 
 stat_card(Icon, Label, Value, ColorClass) ->
     #panel{
@@ -210,12 +216,12 @@ stat_card(Icon, Label, Value, ColorClass) ->
                             #span{class="text-3xl mb-2 block", text=Icon},
                             #p{class="text-sm text-gray-600", text=Label},
                             #p{class=ColorClass ++ " text-2xl font-bold", text=integer_to_list(Value)}
-                        ]
-                    }
-                ]
-            }
-        ]
-    }.
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }.
 
 get_user_count() -> 
     length(mnesia:dirty_match_object(#user{_ = '_'})).

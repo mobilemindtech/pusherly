@@ -7,109 +7,12 @@
     
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/nitrogen/jquery-ui/jquery.ui.all.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/nitrogen/nitrogen.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     
     <!-- Custom CSS -->
-    <style>
-        
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .sidebar-transition {
-            transition: all 0.3s ease-in-out;
-        }
-        
-        /* Dashboard specific styles */
-        .dashboard-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        /* Table styles */
-        .table-hover tbody tr:hover {
-            background-color: rgba(59, 130, 246, 0.05);
-        }        
-        
-        .glassmorphism {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .scroll-smooth {
-            scroll-behavior: smooth;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        /* Flash Messages */
-        .flash-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            max-width: 400px;
-            padding: 16px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            animation: slideInRight 0.3s ease-out;
-        }
-        
-        .flash-success {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-        
-        .flash-error {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-        
-        .flash-info {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
-    
+  
     <!-- Nitrogen CSS -->
     <script src='/nitrogen/jquery.js' type='text/javascript' charset='utf-8'></script>
     <script src='/nitrogen/jquery-ui.min.js' type='text/javascript' charset='utf-8'></script>
