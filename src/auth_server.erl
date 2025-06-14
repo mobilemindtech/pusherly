@@ -8,13 +8,13 @@ start_link() ->
     gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 init([]) ->
-    %% Criar usuário root padrão 
-    %erlang:send_after(0, self(), create_default_root_user),
     {ok, #{}}.
+
+create_default_root_user() ->
+    gen_server:call(?MODULE, create_default_root_user).
 
 authenticate(Email, Password) ->
     gen_server:call(?MODULE, {authenticate, Email, Password}).
-
 
 generate_api_key(UserId) ->
     gen_server:call(?MODULE, {generate_api_key, UserId}).
@@ -22,12 +22,23 @@ generate_api_key(UserId) ->
 validate_session(SessionId) ->
     gen_server:call(?MODULE, {validate_session, SessionId}).
 
+handle_call(create_default_root_user, _From, State) ->
+    case mnesia:dirty_match_object(#user{type = root, _ = '_'}) of
+        [] ->
+            logger:info("going to create root user"),
+            user_service:create("Ricardo", "ricardo", "@123", root);
+        _ ->
+            logger:info("root user already exists"),
+            ok
+    end,
+    {reply, ok, State};
+
 handle_call({authenticate, Email, Password}, _From, State) ->
     case mnesia:dirty_match_object(#user{email = Email, _ = '_'}) of
         [User] ->
-
+            
             logger:info("user found!"),
-
+            
             case support:check_password(Password, User#user.password_hash) of
                 true ->
                     SessionId = support:generate_session_id(),
@@ -83,13 +94,4 @@ handle_cast(_Msg, State) -> {noreply, State}.
 handle_info(_Info, State) -> {noreply, State}.
 terminate(_Reason, _State) -> ok.
 code_change(_OldVsn, State, _Extra) -> {ok, State}.
-
-%% 
-create_default_root_user() ->
-    case mnesia:dirty_match_object(#user{type = root, _ = '_'}) of
-        [] ->
-            user_service:create_user("Root Admin", "admin@example.com", "admin123", root);
-        _ ->
-            ok
-    end.
 

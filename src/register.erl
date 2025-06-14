@@ -7,7 +7,7 @@
 
 main() -> #template { file="./site/templates/bare.html" }.
 
-title() -> "Resgister - Push Notification Manager".
+title() -> "Pusherl :: Register".
 
 body() ->
     #panel{
@@ -22,9 +22,9 @@ body() ->
                         body=[
                             #h1{class="text-3xl font-bold text-white mb-2", text="Nova conta"},
                             #p{class="text-gray-300", text="Entre com seus dados cadastrair"}
-                        ]
-                    },
-
+                            ]
+                        },
+                    
                     %% Form
                     #panel{
                         id=register_form,
@@ -38,58 +38,58 @@ body() ->
                                             #label{
                                                 class="block text-sm font-medium text-gray-200 mb-2",
                                                 text="Name"
-                                            },
+                                                },
                                             #textbox{
                                                 id=name,
                                                 class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200",
                                                 placeholder="fulano"
-                                            }
-                                        ]
-                                    },
+                                                }
+                                            ]
+                                        },
                                     #panel{
                                         body=[
                                             #label{
                                                 class="block text-sm font-medium text-gray-200 mb-2",
                                                 text="Email"
-                                            },
+                                                },
                                             #textbox{
                                                 id=email,
                                                 class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200",
                                                 placeholder="seu@email.com"
-                                            }
-                                        ]
-                                    },
-
+                                                }
+                                            ]
+                                        },
+                                    
                                     %% Password
                                     #panel{
                                         body=[
                                             #label{
                                                 class="block text-sm font-medium text-gray-200 mb-2",
                                                 text="Senha"
-                                            },
+                                                },
                                             #password{
                                                 id=password,
                                                 class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200",
                                                 placeholder="••••••••"
-                                            }
-                                        ]
-                                    },
-
+                                                }
+                                            ]
+                                        },
+                                    
                                     %% Submit Button
                                     #button{
                                         id=register_btn,
                                         class="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-purple-500/25 hover:scale-105",
                                         text="Register",
                                         postback=register
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }.
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }.
 
 event(register) ->
     Email = wf:q(email),

@@ -37,44 +37,6 @@
     animation: fadeInUp 0.6s ease-out;
 }
 
-/* Flash Messages */
-.flash-message {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    max-width: 400px;
-    padding: 16px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    animation: slideInRight 0.3s ease-out;
-}
-
-.flash-success {
-    background: linear-gradient(135deg, #10b981, #059669);
-}
-
-.flash-error {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-}
-
-.flash-info {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
 .sidebar-transition {
     transition: all 0.3s ease-in-out;
 }

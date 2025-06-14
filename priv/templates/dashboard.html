@@ -9,7 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/nitrogen/jquery-ui/jquery.ui.all.css" type="text/css" media="screen" charset="utf-8" />
     <link rel="stylesheet" href="/nitrogen/nitrogen.css" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css?v=11" />
+    <link rel="stylesheet" href="/css/flash.css?v=18" />
     
     <!-- Custom CSS -->
   
@@ -19,6 +20,7 @@
     <script src='/nitrogen/livevalidation.min.js' type='text/javascript' charset='utf-8'></script>
     <script src='/nitrogen/nitrogen.min.js' type='text/javascript' charset='utf-8'></script>
     <script src='/nitrogen/bert.min.js' type='text/javascript' charset='utf-8'></script>
+    <script src='/js/flash.js?v11' type='text/javascript' charset='utf-8'></script>
         
 </head>
 <body class="antialiased">
@@ -51,12 +53,9 @@
         
         // Copy to clipboard function
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showFlash('success', 'Copiado para a área de transferência!');
-            }).catch(() => {
-                showFlash('error', 'Erro ao copiar');
-            });
+            navigator.clipboard.writeText(text)
         }
+
     </script>
 
     <script>

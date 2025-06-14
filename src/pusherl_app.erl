@@ -11,7 +11,9 @@ start(_Type, _Args) ->
     create_tables(),
     
     %% Iniciar supervisores
-    pusherl_sup:start_link().
+    Res = pusherl_sup:start_link(),
+    auth_server:create_default_root_user(),
+    Res.
 
 stop(_State) ->
     mnesia:stop(),

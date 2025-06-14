@@ -1,0 +1,430 @@
+/* ===================================================================
+   COMPONENTE FLASH PERSONALIZADO - CSS
+   ================================================================= */
+
+/* Container principal das notificações */
+.flash-container {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    max-width: 420px;
+    width: 100%;
+}
+
+/* Posicionamento do container */
+.flash-container-top_right {
+    top: 20px;
+    right: 20px;
+}
+
+.flash-container-top_left {
+    top: 20px;
+    left: 20px;
+}
+
+.flash-container-top_center {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.flash-container-bottom_right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.flash-container-bottom_left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.flash-container-bottom_center {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Estilo base da mensagem */
+.custom-flash-message {
+    position: relative;
+    margin-bottom: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: all;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Estado visível */
+.custom-flash-message.flash-show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Estado de saída */
+.custom-flash-message.flash-hide {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+    transition: all 0.3s ease-in;
+}
+
+/* Ícone da mensagem */
+.flash-icon {
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Conteúdo da mensagem */
+.flash-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.flash-title {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: inherit;
+}
+
+.flash-message {
+    margin: 0;
+    word-wrap: break-word;
+}
+
+/* Botão de fechar */
+.flash-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: inherit;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.flash-close-btn:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+
+/* Barra de progresso */
+.flash-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 12px 12px;
+    animation: flashProgress linear forwards;
+    width: 100%;
+    transform-origin: left center;
+}
+
+@keyframes flashProgress {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+/* Pausar progresso no hover */
+.custom-flash-message:hover .flash-progress {
+    animation-play-state: paused;
+}
+
+/* ===================================================================
+   TIPOS DE NOTIFICAÇÃO
+   ================================================================= */
+
+/* Sucesso */
+.flash-success {
+    background: linear-gradient(135deg, 
+        rgba(16, 185, 129, 0.8) 0%, 
+        rgba(5, 150, 105, 0.8) 100%);
+    border-left: 4px solid #10b981;
+    color: #10b981;
+}
+
+.flash-success .flash-icon {
+    color: #10b981;
+}
+
+.flash-success .flash-progress {
+    background: #10b981;
+}
+
+/* Erro */
+.flash-error {
+    background: linear-gradient(135deg, 
+        rgba(239, 68, 68, 0.8) 0%, 
+        rgba(220, 38, 38, 0.8) 100%);
+    border-left: 4px solid #ef4444;
+    color: #ef4444;
+}
+
+.flash-error .flash-icon {
+    color: #ef4444;
+}
+
+.flash-error .flash-progress {
+    background: #ef4444;
+}
+
+/* Aviso */
+.flash-warning {
+    background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.8) 0%, 
+        rgba(217, 119, 6, 0.8) 100%);
+    border-left: 4px solid #f59e0b;
+    color: #f59e0b;
+}
+
+.flash-warning .flash-icon {
+    color: #f59e0b;
+}
+
+.flash-warning .flash-progress {
+    background: #f59e0b;
+}
+
+/* Informação */
+.flash-info {
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.8) 0%, 
+        rgba(37, 99, 235, 0.8) 100%);
+    border-left: 4px solid #3b82f6;
+    color: #3b82f6;
+}
+
+.flash-info .flash-icon {
+    color: #3b82f6;
+}
+
+.flash-info .flash-progress {
+    background: #3b82f6;
+}
+
+/* ===================================================================
+   ANIMAÇÕES DE ENTRADA
+   ================================================================= */
+
+/* Animação Slide (padrão) */
+.flash-anim-slide {
+    /* Já definido no estilo base */
+}
+
+/* Animação Fade */
+.flash-anim-fade {
+    transform: translateX(0) !important;
+    opacity: 0;
+}
+
+.flash-anim-fade.flash-show {
+    transform: translateX(0) !important;
+    opacity: 1;
+}
+
+.flash-anim-fade.flash-hide {
+    transform: translateX(0) !important;
+    opacity: 0;
+}
+
+/* Animação Bounce */
+.flash-anim-bounce {
+    transform: translateY(-100px) !important;
+    opacity: 0;
+}
+
+.flash-anim-bounce.flash-show {
+    transform: translateY(0) !important;
+    opacity: 1;
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateY(-100px) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(0) scale(1.05);
+    }
+    70% {
+        transform: translateY(0) scale(0.9);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===================================================================
+   RESPONSIVIDADE
+   ================================================================= */
+
+@media (max-width: 768px) {
+    .flash-container {
+        left: 10px !important;
+        right: 10px !important;
+        max-width: none;
+        transform: none !important;
+    }
+    
+    .custom-flash-message {
+        margin-bottom: 8px;
+        padding: 14px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+    }
+    
+    .flash-icon {
+        font-size: 16px;
+        margin-top: 1px;
+    }
+    
+    .flash-title {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+    
+    .flash-close-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flash-container {
+        left: 5px !important;
+        right: 5px !important;
+        top: 10px !important;
+        bottom: 10px !important;
+    }
+    
+    .custom-flash-message {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+}
+
+/* ===================================================================
+   TEMA ESCURO
+   ================================================================= */
+
+@media (prefers-color-scheme: dark) {
+    .custom-flash-message {
+        background: rgba(17, 24, 39, 0.95);
+        border: 1px solid rgba(75, 85, 99, 0.3);
+        color: #f9fafb;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .flash-close-btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: #f9fafb;
+    }
+    
+    .flash-close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Sucesso - tema escuro */
+    .flash-success {
+        background: linear-gradient(135deg, 
+            rgba(16, 185, 129, 0.2) 0%, 
+            rgba(5, 150, 105, 0.15) 100%);
+        color: #10b981;
+    }
+    
+    /* Erro - tema escuro */
+    .flash-error {
+        background: linear-gradient(135deg, 
+            rgba(239, 68, 68, 0.2) 0%, 
+            rgba(220, 38, 38, 0.15) 100%);
+        color: #ef4444;
+    }
+    
+    /* Aviso - tema escuro */
+    .flash-warning {
+        background: linear-gradient(135deg, 
+            rgba(245, 158, 11, 0.2) 0%, 
+            rgba(217, 119, 6, 0.15) 100%);
+        color: #f59e0b;
+    }
+    
+    /* Info - tema escuro */
+    .flash-info {
+        background: linear-gradient(135deg, 
+            rgba(59, 130, 246, 0.2) 0%, 
+            rgba(37, 99, 235, 0.15) 100%);
+        color: #3b82f6;
+    }
+}
+
+/* ===================================================================
+   UTILITÁRIOS E ESTADOS ESPECIAIS
+   ================================================================= */
+
+/* Flash com ação customizada */
+.custom-flash-message.has-actions {
+    padding-bottom: 50px;
+}
+
+.flash-actions {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.flash-action-btn {
+    padding: 4px 12px;
+    border: 1px solid currentColor;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.flash-action-btn:hover {
+    background: currentColor;
+    color: white;
+}
+
+/* Flash persistente (sem auto-dismiss) */
+.custom-flash-message.persistent .flash-progress {
+    display: none;
+}
+
+/* Efeito de empilhamento para múltiplas notificações */
+.custom-flash-message:nth-child(1) { z-index: 100; }
+.custom-flash-message:nth-child(2) { z-index: 99; margin-top: -2px; }
+.custom-flash-message:nth-child(3) { z-index: 98; margin-top: -4px; }
+.custom-flash-message:nth-child(4) { z-index: 97; margin-top: -6px; }
+.custom-flash-message:nth-child(5) { z-index: 96; margin-top: -8px; }

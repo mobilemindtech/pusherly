@@ -21,5 +21,8 @@ init([]) ->
             {auth_server, {auth_server, start_link, []}, permanent, 5000, worker, [auth_server]}
             , {api_server, {api_server, start_link, []}, permanent, 5000, worker, [api_server]}
             , {user_service, {user_service, start_link, []}, permanent, 5000, worker, [user_service]}
+            , {channel_service, {channel_service, start_link, []}, permanent, 5000, worker, [channel_service]}
+            , {app_service, {app_service, start_link, []}, permanent, 5000, worker, [app_service]}
             ],
+    
     {ok, {{one_for_one, 5, 10}, Children}}.
